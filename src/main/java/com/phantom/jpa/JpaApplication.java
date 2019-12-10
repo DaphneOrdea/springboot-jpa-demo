@@ -8,6 +8,7 @@ public class JpaApplication {
 
     //开发提交测试
     //第二次提交测试
+    //冲突测试
     public static void main(String[] args) {
         SpringApplication.run(JpaApplication.class, args);
     }
