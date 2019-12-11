@@ -17,11 +17,21 @@ public class StudentEntity {
     private Date birthday;
     private String name;
     private String sex;
-    private Integer teacherId;
+//    private Integer teacherId;
     private AccountEntity accountEntity;
+    private TeacherEntity teacherEntity;
 
+    @ManyToOne(targetEntity = TeacherEntity.class)
+    @JoinColumn(name = "teacher_id")
+    public TeacherEntity getTeacherEntity() {
+        return teacherEntity;
+    }
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "studentEntity")
+    public void setTeacherEntity(TeacherEntity teacherEntity) {
+        this.teacherEntity = teacherEntity;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "studentEntity")//级联映射
     public AccountEntity getAccountEntity() {
         return accountEntity;
     }
@@ -32,7 +42,7 @@ public class StudentEntity {
 
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//主键生成策略，自增
     public int getId() {
         return id;
     }
@@ -81,35 +91,6 @@ public class StudentEntity {
         this.sex = sex;
     }
 
-    @Basic
-    @Column(name = "teacher_id", nullable = true)
-    public Integer getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        StudentEntity that = (StudentEntity) o;
-        return id == that.id &&
-                Objects.equals(age, that.age) &&
-                Objects.equals(birthday, that.birthday) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(sex, that.sex) &&
-                Objects.equals(teacherId, that.teacherId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, age, birthday, name, sex, teacherId);
-    }
-
-
     @Override
     public String toString() {
         return "StudentEntity{" +
@@ -118,8 +99,8 @@ public class StudentEntity {
                 ", birthday=" + birthday +
                 ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
-                ", teacherId=" + teacherId +
                 ", accountEntity=" + accountEntity +
+                ", teacherEntity=" + teacherEntity +
                 '}';
     }
 }

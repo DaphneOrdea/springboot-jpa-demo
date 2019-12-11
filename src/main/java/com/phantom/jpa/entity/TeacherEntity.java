@@ -1,7 +1,9 @@
 package com.phantom.jpa.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author : phantom
@@ -14,6 +16,17 @@ public class TeacherEntity {
     private int id;
     private String name;
     private String birthday;
+    private Set<StudentEntity> studentEntitySet = new HashSet<>();
+
+    //fetch =FetchType.EAGER急加载
+    @OneToMany(targetEntity = StudentEntity.class,mappedBy = "teacherEntity" )
+    public Set<StudentEntity> getStudentEntitySet() {
+        return studentEntitySet;
+    }
+
+    public void setStudentEntitySet(Set<StudentEntity> studentEntitySet) {
+        this.studentEntitySet = studentEntitySet;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
