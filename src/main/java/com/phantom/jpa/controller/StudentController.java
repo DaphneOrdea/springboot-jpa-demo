@@ -47,6 +47,11 @@ public class StudentController {
                 System.out.println(teacherEntity.getName()+" 对应的学生 " + studentEntity.getName());
             }
         }
+        List<StudentEntity> all1 = studentMapper.findAll();
+        for (StudentEntity studentEntity : all1) {
+            System.out.println( studentEntity.getName()+"对应的老师是"+studentEntity.getTeacherEntity().getName());
+            System.out.println( studentEntity.getName()+"对应的账号为"+studentEntity.getAccountEntity().getAccountValue());
+        }
         return "success";
     }
 
